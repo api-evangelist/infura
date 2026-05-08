@@ -5,37 +5,117 @@ provider: Infura
 providerId: infura
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - Web3
 - Blockchain
 - RPC
+- Infrastructure
+- MetaMask
 - ConsenSys
-- IPFS
 - Plans
-description: Placeholder plans/pricing artifact for Infura. Replace with real published pricing once
-  the pipeline researches the provider's plans page.
-notes: Initial scaffold — plans/pricing have not yet been reconciled against the provider's documentation.
+description: Infura uses a daily credit model. Each request consumes credits weighted
+  by method (archive, WebSocket, batch). Each plan has a daily credit allotment and
+  a credits-per-second rate limit.
+notes: Tier credit costs and request weightings are documented in the MetaMask Developer
+  credit cost table.
 sources:
-- https://www.infura.io/
+- https://docs.metamask.io/services/get-started/pricing/
+- https://www.infura.io/pricing
 plans:
-- id: infura-default
-  name: To Be Reconciled
-  type: enterprise
-  description: Initial scaffold; replace with provider plan tiers once pricing is reconciled.
+- id: infura-free
+  name: Free
+  type: free
+  description: Free tier with 3M daily credits and 500 credits/sec.
   entries:
-  - label: API Access
-    name: api_access
-    type: flat
-    metric: varies
-    limit: -1
-    timeFrame: usage
+  - label: Daily Credits
+    name: daily_credits
+    type: included
+    metric: credits
+    limit: 3000000
+    timeFrame: day
     geo: global
     unit: 1
-    price: see https://www.infura.io/
+    price: 0
     userMultiplied: false
   elements:
-  - name: Pending Reconciliation
+  - name: Public Networks
+  - name: Community Support
+- id: infura-developer
+  name: Developer
+  type: paid
+  description: Paid plan with 15M daily credits and 4,000 credits/sec.
+  entries:
+  - label: Monthly Subscription
+    name: monthly_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 50
+    userMultiplied: false
+  - label: Daily Credits
+    name: daily_credits
+    type: included
+    metric: credits
+    limit: 15000000
+    timeFrame: day
+    geo: global
+    unit: 1
+    price: 0
+    userMultiplied: false
+  elements:
+  - name: Archive Data
+  - name: Email Support
+- id: infura-team
+  name: Team
+  type: paid
+  description: Higher-volume tier with 75M daily credits and 40,000 credits/sec.
+  entries:
+  - label: Monthly Subscription
+    name: monthly_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 225
+    userMultiplied: false
+  - label: Daily Credits
+    name: daily_credits
+    type: included
+    metric: credits
+    limit: 75000000
+    timeFrame: day
+    geo: global
+    unit: 1
+    price: 0
+    userMultiplied: false
+  elements:
+  - name: Priority Support
+  - name: Higher Throughput
+- id: infura-custom
+  name: Custom / Enterprise
+  type: enterprise
+  description: Custom contracts with dedicated capacity, SLAs, and DIN failover.
+  entries:
+  - label: Custom
+    name: custom
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: DIN Failover
+  - name: SLA
+  - name: Dedicated Support
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -5,31 +5,49 @@ provider: Infura
 providerId: infura
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - Web3
 - Blockchain
 - RPC
+- Infrastructure
+- MetaMask
 - ConsenSys
-- IPFS
 - Rate Limiting
-- Quotas
-- Throttling
-description: Placeholder rate-limit artifact for Infura. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+description: Infura enforces credits-per-second throughput plus daily credit caps.
+  Different methods cost different credits.
+notes: WebSocket subscriptions and archive calls consume more credits per request.
 sources:
-- https://www.infura.io/
+- https://docs.metamask.io/services/get-started/pricing/
 responseCodes:
   throttled: 429
 limits:
-- name: Default
+- name: Free Throughput
+  scope: api_key
+  metric: credits_per_second
+  limit: 500
+  notes: Free tier.
+- name: Developer Throughput
+  scope: api_key
+  metric: credits_per_second
+  limit: 4000
+  notes: Developer tier.
+- name: Team Throughput
+  scope: api_key
+  metric: credits_per_second
+  limit: 40000
+  notes: Team tier.
+- name: Daily Credit Cap
   scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  metric: credits
+  limit: see plan
+  notes: Daily ceiling per plan.
 policies:
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  description: Exponential backoff with jitter on 429.
+- name: Method Selection
+  description: Prefer non-archive RPC and avoid heavy debug_/trace_ calls when on
+    lower tiers.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

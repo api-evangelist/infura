@@ -5,20 +5,21 @@ provider: Infura
 providerId: infura
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - Web3
 - Blockchain
 - RPC
+- Infrastructure
+- MetaMask
 - ConsenSys
-- IPFS
 - FinOps
-- Cost Management
 - FOCUS
-description: FOCUS-aligned FinOps placeholder for Infura. Pipeline will replace with real billing details.
-notes: Initial scaffold — billing model has not yet been reconciled.
+description: Infura bills as monthly subscription with daily credit allotments. Overage
+  handling depends on plan; Custom is contracted.
+notes: Usage data viewable in MetaMask Developer dashboard. Invoiced via ConsenSys.
 sources:
-- https://www.infura.io/
+- https://docs.metamask.io/services/get-started/pricing/
 - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
@@ -26,41 +27,48 @@ alignedWith:
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-publisherName: Infura
+publisherName: ConsenSys (MetaMask)
 serviceCategory: Web3
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Subscription + Credits
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
   - Usage
   - Purchase
-  - Adjustment
 focusColumns:
   ServiceName: Infura
   ServiceCategory: Web3
   ProviderName: Infura
-  PublisherName: Infura
-  InvoiceIssuerName: Infura
+  PublisherName: ConsenSys
+  InvoiceIssuerName: ConsenSys
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation.
-  unit: varies
+- name: credits
+  description: Daily request credits weighted per method.
+  unit: credit
   aggregation: sum
   dimensions:
+  - api_key
+  - network
+  - method
+- name: ipfs_storage
+  description: IPFS pinned bytes.
+  unit: byte
+  aggregation: max
+  dimensions:
   - account
-  - resource
 principles:
 - name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
+  description: Monitor credit burn in the MetaMask Developer dashboard.
 - name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
+  description: Use one project key per environment/team to attribute credits.
 - name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
+  description: Cache responses; avoid archive unless required; use eth_getLogs windows
+    judiciously.
 - name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  description: Designate project owners; review against daily allotment.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
