@@ -1,7 +1,7 @@
 aid: infura
 url: https://raw.githubusercontent.com/api-evangelist/infura/refs/heads/main/apis.yml
 name: Infura
-x-type: company
+kind: company
 description: Infura (now MetaMask Developer) is a Web3 RPC provider operated by ConsenSys/MetaMask
   offering JSON-RPC and REST APIs for 23+ blockchain networks including Ethereum,
   Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Solana, Starknet, plus
