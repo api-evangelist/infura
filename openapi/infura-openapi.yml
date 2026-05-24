@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: Infura (MetaMask Developer) JSON-RPC API
+  description: |
+    Infura, now part of MetaMask Developer Services, provides JSON-RPC access to
+    Ethereum and 25+ other blockchain networks (Arbitrum, Polygon, Optimism, Base,
+    Solana, Starknet, etc.). The service exposes the standard Ethereum JSON-RPC
+    over HTTPS and WebSocket. Authentication is performed by including your
+    API key as a path segment in the endpoint URL.
+  version: "3"
+  contact:
+    name: MetaMask Developer
+    url: https://docs.metamask.io/services/reference/
+servers:
+  - url: https://mainnet.infura.io/v3/{apiKey}
+    description: Ethereum Mainnet
+    variables:
+      apiKey:
+        default: YOUR-API-KEY
+  - url: https://{network}.infura.io/v3/{apiKey}
+    description: Other networks (arbitrum-mainnet, polygon-mainnet, optimism-mainnet, base-mainnet, etc.)
+    variables:
+      network:
+        default: arbitrum-mainnet
+      apiKey:
+        default: YOUR-API-KEY
+security:
+  - ApiKeyInPath: []
+paths:
+  /:
+    post:
+      summary: JSON-RPC entrypoint
+      description: |
+        All Ethereum-compatible JSON-RPC methods are dispatched through a single
+        POST to the endpoint root. The method name (e.g. eth_blockNumber,
+        eth_getBalance, eth_call, eth_sendRawTransaction, net_version) is
+        specified in the JSON-RPC request body.
+      operationId: jsonRpc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+            examples:
+              eth_blockNumber:
+                value:
+                  jsonrpc: "2.0"
+                  id: 1
+                  method: eth_blockNumber
+                  params: []
+              eth_getBalance:
+                value:
+                  jsonrpc: "2.0"
+                  id: 1
+                  method: eth_getBalance
+                  params: ["0x0000000000000000000000000000000000000000", "latest"]
+              eth_call:
+                value:
+                  jsonrpc: "2.0"
+                  id: 1
+                  method: eth_call
+                  params:
+                    - to: "0x0000000000000000000000000000000000000000"
+                      data: "0x"
+                    - "latest"
+      responses:
+        "200":
+          description: JSON-RPC response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+components:
+  securitySchemes:
+    ApiKeyInPath:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: |
+        Infura API keys are passed as a path segment in the server URL
+        (https://mainnet.infura.io/v3/<YOUR-API-KEY>), not as a query parameter
+        or header. This security scheme is a documentation hint only.
+  schemas:
+    JsonRpcRequest:
+      type: object
+      required: [jsonrpc, method, id]
+      properties:
+        jsonrpc:
+          type: string
+          const: "2.0"
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+        method:
+          type: string
+          examples: [eth_blockNumber, eth_getBalance, eth_call, eth_sendRawTransaction, eth_getLogs, eth_chainId, net_version]
+        params:
+          type: array
+          items: {}
+    JsonRpcResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          const: "2.0"
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+        result: {}
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
