@@ -1,0 +1,591 @@
+asyncapi: '2.6.0'
+info:
+  title: Infura (MetaMask Developer) WebSocket Subscription API
+  version: '1.0.0'
+  description: |
+    AsyncAPI specification for Infura's (now MetaMask Developer Services)
+    Ethereum-compatible WebSocket JSON-RPC subscription interface.
+
+    Infura now defers its Ethereum reference documentation to the MetaMask
+    Developer docs site. Subscription methods (`eth_subscribe`,
+    `eth_unsubscribe`) are exposed exclusively over WebSocket (WSS) and
+    enable real-time, stateful notifications driven by the
+    `eth_subscription` JSON-RPC notification envelope.
+
+    Per the official documentation, Ethereum exposes three subscription
+    types: `newHeads`, `logs`, and `newPendingTransactions`. The
+    `syncing` subscription type is not enumerated in Infura/MetaMask
+    Developer Ethereum reference docs and therefore is not modeled here.
+
+    Sourced from:
+      - https://docs.metamask.io/services/reference/ethereum/json-rpc-methods/subscription-methods/eth_subscribe
+      - https://docs.metamask.io/services/reference/ethereum/json-rpc-methods/subscription-methods/eth_unsubscribe
+      - https://docs.metamask.io/services/concepts/websockets/
+  contact:
+    name: MetaMask Developer
+    url: https://docs.metamask.io/services/reference/
+  license:
+    name: Documentation reference
+    url: https://docs.metamask.io/services/
+  tags:
+    - name: WebSocket
+    - name: JSON-RPC
+    - name: Ethereum
+    - name: Subscriptions
+
+defaultContentType: application/json
+
+servers:
+  production:
+    url: 'wss://{network}.infura.io/ws/v3/{projectId}'
+    protocol: wss
+    description: |
+      Infura WebSocket endpoint. The `network` path segment selects the
+      target chain and the `projectId` (also referred to as the API key)
+      authenticates the request.
+
+      Per the MetaMask Developer "WebSockets" concepts page, the
+      following networks support WebSocket subscriptions: Arbitrum,
+      Avalanche (C-Chain), Base, Binance Smart Chain, Blast, Ethereum,
+      Linea, Mantle, opBNB, Optimism, Polygon, Scroll, and ZKsync Era.
+      WebSocket support is in public beta for Arbitrum, Avalanche
+      (C-Chain), BNB, opBNB, and Optimism.
+    variables:
+      network:
+        description: Network identifier path segment.
+        default: mainnet
+        examples:
+          - mainnet
+          - linea-mainnet
+          - polygon-mainnet
+          - arbitrum-mainnet
+          - optimism-mainnet
+          - base-mainnet
+          - avalanche-mainnet
+          - bnbsmartchain-mainnet
+          - blast-mainnet
+          - mantle-mainnet
+          - opbnb-mainnet
+          - scroll-mainnet
+          - zksync-mainnet
+      projectId:
+        description: |
+          Infura project ID / API key. Issued from the Infura dashboard
+          at https://app.infura.io/. Passed as a path segment - not as a
+          query parameter or header.
+        default: YOUR-API-KEY
+
+channels:
+  /:
+    description: |
+      Root WebSocket channel for the selected Infura network. All
+      JSON-RPC requests (`eth_subscribe`, `eth_unsubscribe`, plus any
+      standard Ethereum JSON-RPC method) are sent as text frames on this
+      single connection, and asynchronous `eth_subscription`
+      notifications stream back over the same connection.
+    publish:
+      operationId: sendJsonRpcRequest
+      summary: Client-to-server JSON-RPC request
+      description: |
+        Send any JSON-RPC 2.0 request frame. Subscription-related
+        methods are `eth_subscribe` and `eth_unsubscribe`. The server
+        replies with a single JSON-RPC response addressed to the same
+        `id`, followed (for `eth_subscribe`) by a stream of
+        `eth_subscription` notifications addressed to the returned
+        subscription ID.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/EthSubscribeRequest'
+          - $ref: '#/components/messages/EthUnsubscribeRequest'
+    subscribe:
+      operationId: receiveJsonRpcFrames
+      summary: Server-to-client frames (responses and notifications)
+      description: |
+        The server emits two kinds of frames: synchronous JSON-RPC
+        responses to client requests (carrying the original `id`), and
+        asynchronous `eth_subscription` notifications (no `id`, the
+        subscription ID is carried in `params.subscription`).
+      message:
+        oneOf:
+          - $ref: '#/components/messages/EthSubscribeResponse'
+          - $ref: '#/components/messages/EthUnsubscribeResponse'
+          - $ref: '#/components/messages/NewHeadsNotification'
+          - $ref: '#/components/messages/LogsNotification'
+          - $ref: '#/components/messages/NewPendingTransactionsNotification'
+          - $ref: '#/components/messages/JsonRpcErrorResponse'
+
+components:
+  messages:
+    EthSubscribeRequest:
+      name: eth_subscribe
+      title: eth_subscribe request
+      summary: Create a new subscription for a particular event.
+      description: |
+        `eth_subscribe` creates a new subscription. The first parameter
+        names the subscription type (`newHeads`, `logs`, or
+        `newPendingTransactions`). The optional second parameter carries
+        type-specific filters (currently only used by `logs`).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EthSubscribeRequest'
+      examples:
+        - name: newHeads
+          summary: Subscribe to new block headers
+          payload:
+            jsonrpc: '2.0'
+            id: 1
+            method: eth_subscribe
+            params:
+              - newHeads
+        - name: logs
+          summary: Subscribe to filtered logs
+          payload:
+            jsonrpc: '2.0'
+            id: 1
+            method: eth_subscribe
+            params:
+              - logs
+              - address: '0x8320fe7702b96808f7bbc0d4a888ed1468216cfd'
+                topics:
+                  - '0xd78a0cb8bb633d06981248b816e7bd33c2a35a6089241d099fa519e361cab902'
+        - name: newPendingTransactions
+          summary: Subscribe to pending transaction hashes
+          payload:
+            jsonrpc: '2.0'
+            id: 1
+            method: eth_subscribe
+            params:
+              - newPendingTransactions
+
+    EthSubscribeResponse:
+      name: eth_subscribe_response
+      title: eth_subscribe response
+      summary: JSON-RPC response containing the newly created subscription ID.
+      description: |
+        Synchronous reply to a successful `eth_subscribe` call. The
+        `result` field is the subscription ID, which is the value the
+        server will populate in `params.subscription` on every
+        notification for this subscription.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EthSubscribeResponse'
+      examples:
+        - name: success
+          payload:
+            id: 1
+            jsonrpc: '2.0'
+            result: '0x9cef478923ff08bf67fde6c64013158d'
+
+    EthUnsubscribeRequest:
+      name: eth_unsubscribe
+      title: eth_unsubscribe request
+      summary: Cancel an existing subscription by its subscription ID.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EthUnsubscribeRequest'
+      examples:
+        - name: cancel
+          payload:
+            jsonrpc: '2.0'
+            id: 1
+            method: eth_unsubscribe
+            params:
+              - '0x9cef478923ff08bf67fde6c64013158d'
+
+    EthUnsubscribeResponse:
+      name: eth_unsubscribe_response
+      title: eth_unsubscribe response
+      summary: Boolean flag indicating whether unsubscription succeeded.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EthUnsubscribeResponse'
+      examples:
+        - name: success
+          payload:
+            id: 1
+            jsonrpc: '2.0'
+            result: true
+
+    NewHeadsNotification:
+      name: newHeads
+      title: newHeads subscription notification
+      summary: Emitted each time a new header is appended to the chain.
+      description: |
+        Subscribing to `newHeads` returns a notification each time a new
+        header is appended to the chain, including chain reorganizations.
+        During a reorg the subscription emits all new headers for the new
+        chain, so the subscription may emit multiple headers at the same
+        height.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NewHeadsNotification'
+      examples:
+        - name: newBlockHeader
+          payload:
+            jsonrpc: '2.0'
+            method: eth_subscription
+            params:
+              subscription: '0x9ce59a13059e417087c02d3236a0b1cc'
+              result:
+                difficulty: '0x15d9223a23aa'
+                extraData: '0xd983010305844765746887676f312e342e328777696e646f7773'
+                gasLimit: '0x47e7c4'
+                gasUsed: '0x38658'
+                logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+                miner: '0xf8b483dba2c3b7176a3da549ad41a48bb3121069'
+                nonce: '0x084149998194cc5f'
+                number: '0x1348c9'
+                parentHash: '0x7736fab79e05dc611604d22470dadad26f56fe494421b5b333de816ce1f25701'
+                receiptRoot: '0x2fab35823ad00c7bb388595cb46652fe7886e00660a01e867824d3dceb1c8d36'
+                sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
+                stateRoot: '0xb3346685172db67de536d8765c43c31009d0eb3bd9c501c9be3229203f15f378'
+                timestamp: '0x56ffeff8'
+                transactionsRoot: '0x0167ffa60e3ebc0b080cdb95f7c0087dd6c0e61413140e39d94d3468d7c9689f'
+
+    LogsNotification:
+      name: logs
+      title: logs subscription notification
+      summary: Emitted when matching event logs are included in new blocks.
+      description: |
+        Returns logs that are included in new imported blocks and match
+        the supplied filter criteria. In case of a chain reorganization,
+        previously sent logs that are on the old chain are re-sent with
+        the `removed` property set to `true`, and logs from transactions
+        that ended up in the new chain are emitted. A subscription can
+        therefore emit logs for the same transaction multiple times.
+
+        Infura strongly recommends specifying a filter (`address`,
+        `topics`, or both) when subscribing to `logs`.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/LogsNotification'
+      examples:
+        - name: logEvent
+          payload:
+            jsonrpc: '2.0'
+            method: eth_subscription
+            params:
+              subscription: '0x4a8a4c0517381924f9838102c5a4dcb7'
+              result:
+                address: '0x8320fe7702b96808f7bbc0d4a888ed1468216cfd'
+                blockHash: '0x61cdb2a09ab99abf791d474f20c2ea89bf8de2923a2d42bb49944c8c993cbf04'
+                blockNumber: '0x29e87'
+                data: '0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000003'
+                logIndex: '0x0'
+                topics:
+                  - '0xd78a0cb8bb633d06981248b816e7bd33c2a35a6089241d099fa519e361cab902'
+                transactionHash: '0xe044554a0a55067caafd07f8020ab9f2af60bdfe337e395ecd84b4877a3d1ab4'
+                transactionIndex: '0x0'
+
+    NewPendingTransactionsNotification:
+      name: newPendingTransactions
+      title: newPendingTransactions subscription notification
+      summary: Emitted as new transactions enter the pending pool.
+      description: |
+        Returns the hash for all transactions that are added to the
+        pending state. When a transaction that was previously part of
+        the canonical chain isn't part of the new canonical chain after
+        a reorganization, it's emitted again.
+
+        Per the Infura concepts page, an event is generated roughly
+        every 700-800ms aggregating pending transactions collected
+        during that window. The `newPendingTransactions` subscription
+        type is not available on all supported networks.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NewPendingTransactionsNotification'
+      examples:
+        - name: pendingTxHash
+          payload:
+            jsonrpc: '2.0'
+            method: eth_subscription
+            params:
+              subscription: '0xc3b33aa549fb9a60e95d21862596617c'
+              result: '0xd6fdc5cc41a9959e922f30cb772a9aef46f4daea279307bc5f7024edc4ccd7fa'
+
+    JsonRpcErrorResponse:
+      name: jsonrpc_error
+      title: JSON-RPC error response
+      summary: Standard JSON-RPC 2.0 error envelope.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/JsonRpcErrorResponse'
+
+  schemas:
+    JsonRpcId:
+      description: |
+        Client-supplied identifier echoed back in the matching response.
+        Notifications (`eth_subscription`) omit `id`.
+      oneOf:
+        - type: integer
+        - type: string
+        - type: 'null'
+
+    JsonRpcVersion:
+      type: string
+      const: '2.0'
+      description: JSON-RPC protocol version. Always `"2.0"`.
+
+    HexQuantity:
+      type: string
+      pattern: '^0x[0-9a-fA-F]+$'
+      description: Hex-encoded quantity, prefixed with `0x`.
+
+    HexData:
+      type: string
+      pattern: '^0x[0-9a-fA-F]*$'
+      description: Hex-encoded byte data, prefixed with `0x`.
+
+    Address:
+      type: string
+      pattern: '^0x[0-9a-fA-F]{40}$'
+      description: 20-byte Ethereum address, hex-encoded with `0x` prefix.
+
+    Hash32:
+      type: string
+      pattern: '^0x[0-9a-fA-F]{64}$'
+      description: 32-byte hash (e.g. block hash, transaction hash, topic).
+
+    SubscriptionId:
+      type: string
+      pattern: '^0x[0-9a-fA-F]+$'
+      description: Subscription identifier returned by `eth_subscribe`.
+
+    LogsFilter:
+      type: object
+      description: |
+        Optional second parameter of `eth_subscribe` when the
+        subscription type is `logs`. Either `address`, `topics`, or both
+        should be supplied per Infura's recommendation.
+      properties:
+        address:
+          description: A single address or array of addresses to filter on.
+          oneOf:
+            - $ref: '#/components/schemas/Address'
+            - type: array
+              items:
+                $ref: '#/components/schemas/Address'
+        topics:
+          description: |
+            Array of topic filters. Each entry is a topic hash, `null`
+            (wildcard), or an array of topic hashes (OR-match).
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/Hash32'
+              - type: 'null'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/Hash32'
+
+    SubscriptionType:
+      type: string
+      enum:
+        - newHeads
+        - logs
+        - newPendingTransactions
+      description: |
+        Subscription event type. Enumerated per the official Infura /
+        MetaMask Developer Ethereum subscription-methods documentation.
+
+    EthSubscribeRequest:
+      type: object
+      required: [jsonrpc, method, id, params]
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        id:
+          $ref: '#/components/schemas/JsonRpcId'
+        method:
+          type: string
+          const: eth_subscribe
+        params:
+          type: array
+          minItems: 1
+          maxItems: 2
+          description: |
+            Tuple of `[subscriptionType]` or
+            `[subscriptionType, filterObject]`. The optional
+            `filterObject` is currently only used by the `logs`
+            subscription type.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/SubscriptionType'
+              - $ref: '#/components/schemas/LogsFilter'
+
+    EthSubscribeResponse:
+      type: object
+      required: [jsonrpc, id, result]
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        id:
+          $ref: '#/components/schemas/JsonRpcId'
+        result:
+          $ref: '#/components/schemas/SubscriptionId'
+
+    EthUnsubscribeRequest:
+      type: object
+      required: [jsonrpc, method, id, params]
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        id:
+          $ref: '#/components/schemas/JsonRpcId'
+        method:
+          type: string
+          const: eth_unsubscribe
+        params:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/SubscriptionId'
+
+    EthUnsubscribeResponse:
+      type: object
+      required: [jsonrpc, id, result]
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        id:
+          $ref: '#/components/schemas/JsonRpcId'
+        result:
+          type: boolean
+          description: '`true` if the subscription was canceled successfully.'
+
+    BlockHeader:
+      type: object
+      description: Ethereum block header as emitted on `newHeads` notifications.
+      properties:
+        difficulty:
+          $ref: '#/components/schemas/HexQuantity'
+        extraData:
+          $ref: '#/components/schemas/HexData'
+        gasLimit:
+          $ref: '#/components/schemas/HexQuantity'
+        gasUsed:
+          $ref: '#/components/schemas/HexQuantity'
+        logsBloom:
+          $ref: '#/components/schemas/HexData'
+        miner:
+          $ref: '#/components/schemas/Address'
+        nonce:
+          type: string
+          description: 8-byte nonce, hex-encoded.
+        number:
+          $ref: '#/components/schemas/HexQuantity'
+        parentHash:
+          $ref: '#/components/schemas/Hash32'
+        receiptRoot:
+          $ref: '#/components/schemas/Hash32'
+        sha3Uncles:
+          $ref: '#/components/schemas/Hash32'
+        stateRoot:
+          $ref: '#/components/schemas/Hash32'
+        timestamp:
+          $ref: '#/components/schemas/HexQuantity'
+        transactionsRoot:
+          $ref: '#/components/schemas/Hash32'
+
+    LogEntry:
+      type: object
+      description: |
+        Ethereum log entry. The `removed` property is `true` when this
+        log was emitted on the old chain after a reorg.
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        blockHash:
+          $ref: '#/components/schemas/Hash32'
+        blockNumber:
+          $ref: '#/components/schemas/HexQuantity'
+        data:
+          $ref: '#/components/schemas/HexData'
+        logIndex:
+          $ref: '#/components/schemas/HexQuantity'
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hash32'
+        transactionHash:
+          $ref: '#/components/schemas/Hash32'
+        transactionIndex:
+          $ref: '#/components/schemas/HexQuantity'
+        removed:
+          type: boolean
+          description: '`true` if this log was removed due to a chain reorganization.'
+
+    NotificationEnvelope:
+      type: object
+      required: [jsonrpc, method, params]
+      description: |
+        Common JSON-RPC envelope for asynchronous `eth_subscription`
+        notifications. Subtypes refine `params.result` for the specific
+        subscription type.
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        method:
+          type: string
+          const: eth_subscription
+
+    NewHeadsNotification:
+      allOf:
+        - $ref: '#/components/schemas/NotificationEnvelope'
+        - type: object
+          properties:
+            params:
+              type: object
+              required: [subscription, result]
+              properties:
+                subscription:
+                  $ref: '#/components/schemas/SubscriptionId'
+                result:
+                  $ref: '#/components/schemas/BlockHeader'
+
+    LogsNotification:
+      allOf:
+        - $ref: '#/components/schemas/NotificationEnvelope'
+        - type: object
+          properties:
+            params:
+              type: object
+              required: [subscription, result]
+              properties:
+                subscription:
+                  $ref: '#/components/schemas/SubscriptionId'
+                result:
+                  $ref: '#/components/schemas/LogEntry'
+
+    NewPendingTransactionsNotification:
+      allOf:
+        - $ref: '#/components/schemas/NotificationEnvelope'
+        - type: object
+          properties:
+            params:
+              type: object
+              required: [subscription, result]
+              properties:
+                subscription:
+                  $ref: '#/components/schemas/SubscriptionId'
+                result:
+                  $ref: '#/components/schemas/Hash32'
+
+    JsonRpcErrorResponse:
+      type: object
+      required: [jsonrpc, id, error]
+      properties:
+        jsonrpc:
+          $ref: '#/components/schemas/JsonRpcVersion'
+        id:
+          $ref: '#/components/schemas/JsonRpcId'
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            data: {}
