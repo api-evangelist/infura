@@ -7,7 +7,7 @@ description: Infura (now MetaMask Developer) is a Web3 RPC provider operated by 
   Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Solana, Starknet, plus
   IPFS and a Gas API. Backed by the Decentralized Infrastructure Network (DIN) for
   failover.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Web3
   - Blockchain
