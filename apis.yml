@@ -81,6 +81,10 @@ apis:
     - type: Documentation
       url: https://docs.metamask.io/services/reference/nft-api/
 common:
+  - type: DomainSecurity
+    url: security/infura-domain-security.yml
+  - type: Authentication
+    url: authentication/infura-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/INFURA
   - type: LinkedIn

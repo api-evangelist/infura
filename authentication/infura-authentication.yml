@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/infura-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: ApiKeyInPath
+  type: apiKey
+  in: query
+  parameter: apiKey
+  description: |-
+    Infura API keys are passed as a path segment in the server URL
+    (https://mainnet.infura.io/v3/<YOUR-API-KEY>), not as a query parameter
+    or header. This security scheme is a documentation hint only.
+  sources:
+  - openapi/infura-openapi.yml
