@@ -7,7 +7,20 @@ description: Infura (now MetaMask Developer) is a Web3 RPC provider operated by 
   Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Solana, Starknet, plus
   IPFS and a Gas API. Backed by the Decentralized Infrastructure Network (DIN) for
   failover.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/infura.png
 tags:
   - Web3
   - Blockchain
@@ -19,67 +32,79 @@ created: '2026-05-08'
 modified: '2026-05-29'
 specificationVersion: '0.19'
 apis:
-  - aid: infura:json-rpc
-    name: Infura JSON-RPC API
-    description: Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks
-      (Ethereum, Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Scroll, Mantle,
-      Blast, Starknet, etc.).
-    humanURL: https://docs.metamask.io/services/reference/
-    baseURL: https://{network}.infura.io/v3/{apiKey}
-    tags:
-    - JSON-RPC
-    - WebSocket
-    - Multi-chain
-    properties:
-    - type: Documentation
-      url: https://docs.metamask.io/services/reference/
-    - type: AsyncAPI
-      url: asyncapi/infura-asyncapi.yml
-  - aid: infura:solana-rpc
-    name: Infura Solana JSON-RPC
-    description: Solana JSON-RPC and WebSocket endpoints.
-    humanURL: https://docs.metamask.io/services/reference/solana/
-    baseURL: https://solana-mainnet.infura.io/v3/{apiKey}
-    tags:
-    - JSON-RPC
-    - Solana
-    properties:
-    - type: Documentation
-      url: https://docs.metamask.io/services/reference/solana/
-  - aid: infura:gas-api
-    name: Infura Gas API
-    description: REST API for EIP-1559 gas estimation, gas prices, and base-fee history
-      across supported chains.
-    humanURL: https://docs.metamask.io/services/reference/gas-api/
-    baseURL: https://gas.api.infura.io/v3/{apiKey}
-    tags:
-    - REST
-    - Gas
-    properties:
-    - type: Documentation
-      url: https://docs.metamask.io/services/reference/gas-api/
-  - aid: infura:ipfs
-    name: Infura IPFS API
-    description: REST API for pinning and retrieving content on IPFS.
-    humanURL: https://docs.metamask.io/services/reference/ipfs/
-    baseURL: https://ipfs.infura.io:5001/api/v0
-    tags:
-    - REST
-    - IPFS
-    properties:
-    - type: Documentation
-      url: https://docs.metamask.io/services/reference/ipfs/
-  - aid: infura:nft-api
-    name: Infura NFT API
-    description: REST API for NFT metadata, ownership, and collection data on EVM chains.
-    humanURL: https://docs.metamask.io/services/reference/nft-api/
-    baseURL: https://nft.api.infura.io/networks/{chainId}
-    tags:
-    - REST
-    - NFT
-    properties:
-    - type: Documentation
-      url: https://docs.metamask.io/services/reference/nft-api/
+- aid: infura:json-rpc
+  name: Infura JSON-RPC API
+  description: >-
+    Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks (Ethereum, Linea, Polygon, Arbitrum,
+    Optimism, Base, Avalanche, BNB, Scroll, Mantle, Blast, Starknet, etc.).
+  humanURL: https://docs.metamask.io/services/reference/
+  baseURL: https://{network}.infura.io/v3/{apiKey}
+  tags:
+  - JSON-RPC
+  - WebSocket
+  - Multi-chain
+  properties:
+  - type: Documentation
+    url: https://docs.metamask.io/services/reference/
+  - type: AsyncAPI
+    url: asyncapi/infura-asyncapi.yml
+- aid: infura:solana-rpc
+  name: Infura Solana JSON-RPC
+  description: Solana JSON-RPC and WebSocket endpoints.
+  humanURL: https://docs.metamask.io/services/reference/solana/
+  baseURL: https://solana-mainnet.infura.io/v3/{apiKey}
+  tags:
+  - JSON-RPC
+  - Solana
+  properties:
+  - type: Documentation
+    url: https://docs.metamask.io/services/reference/solana/
+- aid: infura:gas-api
+  name: Infura Gas API
+  description: >-
+    REST API for EIP-1559 gas estimation, gas prices, and base-fee history across supported chains.
+  humanURL: https://docs.metamask.io/services/reference/gas-api/
+  baseURL: https://gas.api.infura.io/v3/{apiKey}
+  tags:
+  - REST
+  - Gas
+  properties:
+  - type: Documentation
+    url: https://docs.metamask.io/services/reference/gas-api/
+- aid: infura:ipfs
+  name: Infura IPFS API
+  description: REST API for pinning and retrieving content on IPFS.
+  humanURL: https://docs.metamask.io/services/reference/ipfs/
+  baseURL: https://ipfs.infura.io:5001/api/v0
+  tags:
+  - REST
+  - IPFS
+  properties:
+  - type: Documentation
+    url: https://docs.metamask.io/services/reference/ipfs/
+- aid: infura:nft-api
+  name: Infura NFT API
+  description: REST API for NFT metadata, ownership, and collection data on EVM chains.
+  humanURL: https://docs.metamask.io/services/reference/nft-api/
+  baseURL: https://nft.api.infura.io/networks/{chainId}
+  tags:
+  - REST
+  - NFT
+  properties:
+  - type: Documentation
+    url: https://docs.metamask.io/services/reference/nft-api/
+- aid: infura:infura-infura-metamask-developer-json-rpc-api-api
+  name: Infura Infura (MetaMask Developer) JSON RPC API API
+  description: >-
+    The Infura (MetaMask Developer) JSON RPC API API from Infura — 1 operation(s) for infura (metamask
+    developer) json rpc api.
+  humanURL: https://docs.metamask.io/services/reference/
+  baseURL: https://{network}.infura.io/v3/{apiKey}
+  tags:
+  - Infura (MetaMask Developer) JSON RPC API
+  properties:
+  - type: OpenAPI
+    url: openapi/infura-infura-metamask-developer-json-rpc-api-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/infura-agentic-access.yml
