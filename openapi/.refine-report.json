@@ -1,0 +1,14 @@
+{
+  "provider": "infura",
+  "sources": [
+    "infura-infura-metamask-developer-json-rpc-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "infura-infura-metamask-developer-json-rpc-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
