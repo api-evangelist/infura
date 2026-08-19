@@ -1,0 +1,174 @@
+{
+  "item": [
+    {
+      "id": "a16e0b48-e349-44df-971f-b2babbbef1fd",
+      "name": "Infura (MetaMask Developer) JSON RPC API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7aa87560-854e-4072-9b73-7f0f69a8037a",
+          "name": "JSON-RPC entrypoint",
+          "request": {
+            "name": "JSON-RPC entrypoint",
+            "description": {
+              "content": "All Ethereum-compatible JSON-RPC methods are dispatched through a single\nPOST to the endpoint root. The method name (e.g. eth_blockNumber,\neth_getBalance, eth_call, eth_sendRawTransaction, net_version) is\nspecified in the JSON-RPC request body.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{apiKey}}",
+                  "key": "apiKey"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"<string>\",\n  \"id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba50b160-9ae5-41f8-908b-7bf05897079e",
+              "name": "JSON-RPC response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "apiKey",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{apiKey}}",
+                      "key": "apiKey"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"eth_blockNumber\",\n  \"params\": []\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jsonrpc\": \"string\",\n  \"id\": 4860,\n  \"result\": \"\",\n  \"error\": {\n    \"code\": 683,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "YOUR-API-KEY",
+      "key": "apiKey"
+    },
+    {
+      "type": "string",
+      "value": "https://mainnet.infura.io/v3/{{apiKey}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd7d644c-8e6a-4813-b37d-7bd84a70d006",
+    "name": "Infura (MetaMask Developer) JSON-RPC Infura (MetaMask Developer) JSON RPC API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Infura, now part of MetaMask Developer Services, provides JSON-RPC access to\nEthereum and 25+ other blockchain networks (Arbitrum, Polygon, Optimism, Base,\nSolana, Starknet, etc.). The service exposes the standard Ethereum JSON-RPC\nover HTTPS and WebSocket. Authentication is performed by including your\nAPI key as a path segment in the endpoint URL.\n\n\nContact Support:\n Name: MetaMask Developer",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Infura (MetaMask Developer) JSON-RPC Infura (MetaMask Developer) JSON RPC API API",
+    "version": "3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Infura (MetaMask Developer) JSON RPC API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "JSON-RPC entrypoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mainnet.infura.io/v3/{apiKey}/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "All Ethereum-compatible JSON-RPC methods are dispatched through a single\nPOST to the endpoint root. The method name (e.g. eth_blockNumber,\neth_getBalance, eth_call, eth_sendRawTransaction, net_version) is\nspecified in the JSON-RPC request body.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
