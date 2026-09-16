@@ -2,11 +2,10 @@ aid: infura
 url: https://raw.githubusercontent.com/api-evangelist/infura/refs/heads/main/apis.yml
 name: Infura
 kind: company
-description: Infura (now MetaMask Developer) is a Web3 RPC provider operated by ConsenSys/MetaMask
-  offering JSON-RPC and REST APIs for 23+ blockchain networks including Ethereum,
-  Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Solana, Starknet, plus
-  IPFS and a Gas API. Backed by the Decentralized Infrastructure Network (DIN) for
-  failover.
+description: Infura (now MetaMask Developer) is a Web3 RPC provider operated by ConsenSys/MetaMask offering
+  JSON-RPC and REST APIs for 23+ blockchain networks including Ethereum, Linea, Polygon, Arbitrum, Optimism,
+  Base, Avalanche, BNB, Solana, Starknet, plus IPFS and a Gas API. Backed by the Decentralized Infrastructure
+  Network (DIN) for failover.
 deliveryModel:
   model: saas
   open_source: false
@@ -35,21 +34,20 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/infura.png
 tags:
-  - Web3
-  - Blockchain
-  - RPC
-  - Infrastructure
-  - MetaMask
-  - ConsenSys
+- Web3
+- Blockchain
+- RPC
+- Infrastructure
+- MetaMask
+- ConsenSys
 created: '2026-05-08'
-modified: '2026-05-29'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: infura:json-rpc
   name: Infura JSON-RPC API
-  description: >-
-    Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks (Ethereum, Linea, Polygon, Arbitrum,
-    Optimism, Base, Avalanche, BNB, Scroll, Mantle, Blast, Starknet, etc.).
+  description: Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks (Ethereum, Linea, Polygon,
+    Arbitrum, Optimism, Base, Avalanche, BNB, Scroll, Mantle, Blast, Starknet, etc.).
   humanURL: https://docs.metamask.io/services/reference/
   baseURL: https://{network}.infura.io/v3/{apiKey}
   tags:
@@ -78,8 +76,8 @@ apis:
     url: https://docs.metamask.io/services/reference/solana/
 - aid: infura:gas-api
   name: Infura Gas API
-  description: >-
-    REST API for EIP-1559 gas estimation, gas prices, and base-fee history across supported chains.
+  description: REST API for EIP-1559 gas estimation, gas prices, and base-fee history across supported
+    chains.
   humanURL: https://docs.metamask.io/services/reference/gas-api/
   baseURL: https://gas.api.infura.io/v3/{apiKey}
   tags:
@@ -111,10 +109,9 @@ apis:
   - type: Documentation
     url: https://docs.metamask.io/services/reference/nft-api/
 - aid: infura:infura-infura-metamask-developer-json-rpc-api-api
-  name: Infura Infura (MetaMask Developer) JSON RPC API API
-  description: >-
-    The Infura (MetaMask Developer) JSON RPC API API from Infura — 1 operation(s) for infura (metamask
-    developer) json rpc api.
+  name: Infura (MetaMask Developer) JSON RPC API
+  description: The Infura (MetaMask Developer) JSON RPC API API from Infura — 1 operation(s) for infura
+    (metamask developer) json rpc api.
   humanURL: https://docs.metamask.io/services/reference/
   baseURL: https://{network}.infura.io/v3/{apiKey}
   tags:
@@ -123,24 +120,24 @@ apis:
   - type: OpenAPI
     url: openapi/infura-infura-metamask-developer-json-rpc-api-api-openapi.yml
 common:
-  - type: AgenticAccess
-    url: agentic-access/infura-agentic-access.yml
-  - type: DomainSecurity
-    url: security/infura-domain-security.yml
-  - type: Authentication
-    url: authentication/infura-authentication.yml
-  - type: GitHubOrganization
-    url: https://github.com/INFURA
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/infuraio
-  - type: Website
-    url: https://www.infura.io/
-  - type: Plans
-    url: plans/infura-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/infura-rate-limits.yml
-  - type: FinOps
-    url: finops/infura-finops.yml
+- type: AgenticAccess
+  url: agentic-access/infura-agentic-access.yml
+- type: DomainSecurity
+  url: security/infura-domain-security.yml
+- type: Authentication
+  url: authentication/infura-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/INFURA
+- type: LinkedIn
+  url: https://www.linkedin.com/company/infuraio
+- type: Website
+  url: https://www.infura.io/
+- type: Plans
+  url: plans/infura-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/infura-rate-limits.yml
+- type: FinOps
+  url: finops/infura-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
