@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Infura (MetaMask Developer) JSON-RPC Infura (MetaMask Developer) JSON RPC API API
+  title: Infura (MetaMask Developer) JSON-RPC Infura (MetaMask…
   description: 'Infura, now part of MetaMask Developer Services, provides JSON-RPC access to
 
     Ethereum and 25+ other blockchain networks (Arbitrum, Polygon, Optimism, Base,
@@ -9,9 +9,7 @@ info:
 
     over HTTPS and WebSocket. Authentication is performed by including your
 
-    API key as a path segment in the endpoint URL.
-
-    '
+    API key as a path segment in the endpoint URL.'
   version: '3'
   contact:
     name: MetaMask Developer
@@ -43,9 +41,7 @@ paths:
 
         eth_getBalance, eth_call, eth_sendRawTransaction, net_version) is
 
-        specified in the JSON-RPC request body.
-
-        '
+        specified in the JSON-RPC request body.'
       operationId: jsonRpc
       requestBody:
         required: true

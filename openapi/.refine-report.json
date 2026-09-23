@@ -1,7 +1,7 @@
 {
   "provider": "infura",
   "sources": [
-    "infura-infura-metamask-developer-json-rpc-api-api-openapi.yml"
+    "_original/infura-openapi.yml"
   ],
   "outputs": [
     "infura-infura-metamask-developer-json-rpc-api-api-openapi.yml"
@@ -9,6 +9,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "infura-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "infura-openapi.yml: tagged paths POST / -> Infura (MetaMask Developer) JSON RPC API",
+    "infura-openapi.yml: declared missing tag: Infura (MetaMask Developer) JSON RPC API",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "infura-infura-metamask-developer-json-rpc-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
