@@ -1,4 +1,4 @@
-# Infura (infura)
+# Infura
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,126 +66,137 @@
 
 Infura (now MetaMask Developer) is a Web3 RPC provider operated by ConsenSys/MetaMask offering JSON-RPC and REST APIs for 23+ blockchain networks including Ethereum, Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Solana, Starknet, plus IPFS and a Gas API. Backed by the Decentralized Infrastructure Network (DIN) for failover.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/infura/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/infura/refs/heads/main/apis.yml)
+**Areas:** Web3 · Blockchain · RPC · Infrastructure · MetaMask · ConsenSys · Real-Time · Ethereum
 
-## Tags
+## Infura on APIs.io
 
-- Web3
-- Blockchain
-- RPC
-- Infrastructure
-- MetaMask
-- ConsenSys
+Everything profiled for Infura is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/infura/](https://apis.io/providers/infura/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-29
+- [Infura JSON-RPC API](https://apis.io/apis/infura/json-rpc/) — Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks (Ethereum, Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Scroll, Mantle,…
+- [Infura Solana JSON-RPC](https://apis.io/apis/infura/solana-rpc/) — Solana JSON-RPC and WebSocket endpoints.
+- [Infura Gas API](https://apis.io/apis/infura/gas-api/) — REST API for EIP-1559 gas estimation, gas prices, and base-fee history across supported chains.
+- [Infura IPFS API](https://apis.io/apis/infura/ipfs/) — REST API for pinning and retrieving content on IPFS.
+- [Infura NFT API](https://apis.io/apis/infura/nft-api/) — REST API for NFT metadata, ownership, and collection data on EVM chains.
+- [Infura (MetaMask Developer) JSON RPC API](https://apis.io/apis/infura/infura-infura-metamask-developer-json-rpc-api-api/) — The Infura (MetaMask Developer) JSON RPC API API from Infura — 1 operation(s) for infura (metamask developer) json rpc api.
 
-## APIs
+### Published properties
 
-### Infura JSON-RPC API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Multi-chain JSON-RPC over HTTPS and WebSockets across 23+ networks (Ethereum, Linea, Polygon, Arbitrum, Optimism, Base, Avalanche, BNB, Scroll, Mantle, Blast, Starknet, etc.).
+#### AsyncAPI (1)
 
-- **Human URL:** [https://docs.metamask.io/services/reference/](https://docs.metamask.io/services/reference/)
-- **Base URL:** `https://{network}.infura.io/v3/{apiKey}`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Infura (MetaMask Developer) WebSocket Subscription API](https://apis.io/asyncapis/infura/infura-asyncapi/)
 
-- JSON-RPC
-- WebSocket
-- Multi-chain
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://docs.metamask.io/services/reference/)
-- [AsyncAPI](asyncapi/infura-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/infura.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/infura.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/](https://apis.io/channels/infura/untitled/)
 
-### Infura Solana JSON-RPC
+#### Agentic access (1)
 
-Solana JSON-RPC and WebSocket endpoints.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.metamask.io/services/reference/solana/](https://docs.metamask.io/services/reference/solana/)
-- **Base URL:** `https://solana-mainnet.infura.io/v3/{apiKey}`
+- [Infura Agentic Access](https://apis.io/agentic-access/infura/infura-agentic-access/)
 
-#### Tags
+#### Collections (2)
 
-- JSON-RPC
-- Solana
+Postman and Open Collection request collections.
 
-#### Properties
+- [Infura (MetaMask Developer) JSON-RPC API](https://apis.io/collections/infura/open-infura/)
+- [Infura (MetaMask Developer) JSON-RPC Infura (MetaMask Developer) JSON RPC API API](https://apis.io/collections/infura/open-infura-infura-metamask-developer-json-rpc-api-api/)
 
-- [Documentation](https://docs.metamask.io/services/reference/solana/)
-- [Postman Collection](collections/infura.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/infura.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (1)
 
-### Infura Gas API
+Spectral rulesets for the provider's contracts.
 
-REST API for EIP-1559 gas estimation, gas prices, and base-fee history across supported chains.
+- [Infura — asyncapi rules](https://apis.io/rules/infura/infura-asyncapi-spectral-rules/)
 
-- **Human URL:** [https://docs.metamask.io/services/reference/gas-api/](https://docs.metamask.io/services/reference/gas-api/)
-- **Base URL:** `https://gas.api.infura.io/v3/{apiKey}`
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- REST
-- Gas
+- [Infura Authentication](https://apis.io/security/infura/infura-authentication/)
+- [Infura Domain Security](https://apis.io/security/infura/infura-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://docs.metamask.io/services/reference/gas-api/)
-- [Postman Collection](collections/infura.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/infura.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Infura IPFS API
+- [Infura Plans Pricing](https://apis.io/plans/infura/infura-plans-pricing/)
 
-REST API for pinning and retrieving content on IPFS.
+#### Rate limits (1)
 
-- **Human URL:** [https://docs.metamask.io/services/reference/ipfs/](https://docs.metamask.io/services/reference/ipfs/)
-- **Base URL:** `https://ipfs.infura.io:5001/api/v0`
+Published request limits.
 
-#### Tags
+- [Infura Rate Limits](https://apis.io/rate-limits/infura/infura-rate-limits/)
 
-- REST
-- IPFS
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://docs.metamask.io/services/reference/ipfs/)
-- [Postman Collection](collections/infura.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/infura.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Infura Finops](https://apis.io/finops/infura/infura-finops/)
 
-### Infura NFT API
+## Where to find this API
 
-REST API for NFT metadata, ownership, and collection data on EVM chains.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://docs.metamask.io/services/reference/nft-api/](https://docs.metamask.io/services/reference/nft-api/)
-- **Base URL:** `https://nft.api.infura.io/networks/{chainId}`
-
-#### Tags
-
-- REST
-- NFT
-
-#### Properties
-
-- [Documentation](https://docs.metamask.io/services/reference/nft-api/)
-- [Postman Collection](collections/infura.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/infura.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/INFURA)
-- [LinkedIn](https://www.linkedin.com/company/infuraio)
 - [Website](https://www.infura.io/)
-- [Plans](plans/infura-plans-pricing.yml)
-- [Rate Limits](rate-limits/infura-rate-limits.yml)
-- [Fin Ops](finops/infura-finops.yml)
+- [GitHub](https://github.com/INFURA)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 28.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.9 |
+| Contract governance | 13.6 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 7.9 |
+
+**Agent readiness 24.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/infura/](https://apis.io/providers/infura/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Infura: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/infura/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
